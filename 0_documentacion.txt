@@ -1,0 +1,70 @@
+### Rol: 
+    admin      -> Usuario administrador. Puede crear docentes y alumnos. Interfaz de usuario docente + registros/edición/eliminación.
+    docente    -> Interfaz de usuario docente + registro/edición
+    alumno     -> Intefaz de alumno.
+
+### Integración en Unity:
+    Buscar Usuario:
+        En Unity, enviar una solicitud HTTP al script buscar_usuario.php, proporcionando el término de búsqueda.
+        Recibe la respuesta JSON con los resultados de la búsqueda (ID y usuario).
+        Procesar esta información en Unity según necesidades.
+
+    Editar Usuario:
+        Cuando desees editar un usuario, enviar una solicitud HTTP al script editar_usuario.php desde Unity, 
+        proporcionando el nuevo nombre de usuario, la nueva contraseña y el ID del usuario (proporcionado por el 
+        script buscar_usuario.php, no permitir cambiar, solo debe ser informativo. El código SQL usa el campo ID para
+        encontrar al usuario en la bbdd e insertarlo donde corresponde, no actualiza el ID).
+        Recibe la respuesta JSON que indicará si la operación fue exitosa o si se produjo algún error.
+
+    Borrar Usuario:
+        SOLO PARA ADMINISTRADORES.
+        La secuencia sería:
+        Realizar la búsqueda del usuario desde Unity utilizando el script buscar_usuario.
+        Obtener la información del usuario, incluido el ID, desde la respuesta JSON de la búsqueda.
+        Utilizar esa información (ID) para llamar al script de borrar_usuario desde Unity y eliminar al usuario 
+        de la base de datos.
+
+
+### Funcionalidades:
+    check()
+    reg_usuario(usuario, password, *player, rol)  // 'player' está por definir como se va a tratar
+    login(usuario, password)
+    editar_usuario(nuevoNombreUsuario, nuevoPassword, idUsuario)
+    buscar_usuario(usuario)
+
+
+### Códigos de respuesta:
+    200 : Conectado correctamente
+    201 : Usuario creado correctamente
+    202 : El usuario existe en el sistema
+    203 : El usuario no existe en el sistema
+    204 : El usuario o la contrasenia son incorrectos
+    205 : Inicio de sesion correcto
+    206 : Usuario editado con exito
+    207 : Usuario eliminado con éxito
+
+    400 : Error intentando conectar
+    401 : Error intentando crear usuario 
+    402 : Faltan datos para ejecutar la acción solicitada
+    404 : Error
+    405 : Termino de busqueda vacio
+    406 : Error actualizando datos del usuario
+    407 : Nuevo valor de usuario o ID de usuario vacío
+    408 : No existe el usuario
+    409 : Error eliminando usuario
+    410 : ID de usuario vacío
+    411 : No estás autenticado
+
+### Validación de contraseñas:
+    Requiere de al menos: 
+        - Una letra minúscula
+        - Una letra mayúscula
+        - Un dígito
+        - Un carácter especial de los especificados en el conjunto [$@$!%*?&#.$($)$-$_]
+        - Entre 8 y 15 caracteres
+    Validación de email:
+        - Delimitado por palabras
+        - Ha de incluir @
+        - Ha de incluir un punto '.' antes de la última palabras
+    Validación(doble) de roles:
+        - Usuario o docente

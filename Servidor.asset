@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ed7c7ac64b9418e851e6fc1e5a41d4, type: 3}
+  m_Name: Servidor
+  m_EditorClassIdentifier: 
+  servidor: http://localhost/hospitalMedacB
+  servicio:
+  - nombre: login
+    URL: login_copy.php
+    parametros:
+    - usuario
+    - password
+  - nombre: check
+    URL: check.php
+    parametros: []
+  - nombre: registrar usuario
+    URL: reg_usuario.php
+    parametros:
+    - usuario
+    - password
+    - player
+    - rol
+  isBusy: 0
+  respuesta:
+    codigo: 205
+    mensaje: Inicio de sesion correcto
+    respuesta: 
+    id: 1
+    rol: admin
+    usuario: jll0020@alu.medac.es
+    nombre: Javier
+    apellido1: Lopez
+    apellido2: Lara
