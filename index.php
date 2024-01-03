@@ -1,1 +1,0 @@
-echo '"Vuelve a la pantalla de inicio!"';
